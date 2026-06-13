@@ -5,7 +5,7 @@ import { menu, close } from "../assets";
 import { useTheme } from "../context/ThemeContext";
 import MenuOverlay from "./MenuOverlay";
 import config from "../data/config";
-import { socket } from "../socket"; // IMPORTANT
+import { socket } from "../socket";
 
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);
@@ -29,7 +29,7 @@ const Navbar = () => {
     };
   }, [menuOpen]);
 
-  // 👥 ONLINE USERS LISTENER
+  // 👥 ONLINE USERS
   useEffect(() => {
     socket.on("online-users", (count) => {
       setOnlineUsers(count);
@@ -40,6 +40,7 @@ const Navbar = () => {
 
   return (
     <>
+      {/* NAVBAR */}
       <nav
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${
           scrolled
@@ -49,7 +50,7 @@ const Navbar = () => {
       >
         <div className="max-w-7xl mx-auto px-6 sm:px-8 py-4 flex justify-between items-center">
 
-          {/* LEFT NAME */}
+          {/* LOGO */}
           <Link
             to="/"
             onClick={() => window.scrollTo(0, 0)}
@@ -61,22 +62,18 @@ const Navbar = () => {
           {/* RIGHT SECTION */}
           <div className="hidden sm:flex items-center gap-4">
 
-            {/* THEME TOGGLE */}
-            <button
-              onClick={toggleTheme}
-              className="nav-btn"
-              aria-label="Toggle theme"
-            >
+            {/* THEME */}
+            <button onClick={toggleTheme} className="nav-btn">
               {theme === "dark" ? <FaSun /> : <FaMoon />}
             </button>
 
-            {/* 👥 ONLINE USERS */}
+            {/* ONLINE USERS */}
             <div className="flex items-center gap-1 text-[var(--text-primary)] text-sm">
               <FaUsers />
               <span>{onlineUsers}</span>
             </div>
 
-            {/* 💬 CHAT BUTTON */}
+            {/* CHAT BUTTON */}
             <button
               onClick={() => setChatOpen(true)}
               className="nav-btn"
@@ -85,7 +82,7 @@ const Navbar = () => {
               <FaComments />
             </button>
 
-            {/* MENU BUTTON */}
+            {/* MENU */}
             <button
               onClick={() => setMenuOpen(true)}
               className="nav-btn px-5 font-semibold"
@@ -96,11 +93,7 @@ const Navbar = () => {
 
           {/* MOBILE */}
           <div className="sm:hidden flex items-center gap-3">
-            <button
-              onClick={toggleTheme}
-              className="nav-btn"
-              aria-label="Toggle theme"
-            >
+            <button onClick={toggleTheme} className="nav-btn">
               {theme === "dark" ? <FaSun /> : <FaMoon />}
             </button>
 
@@ -135,17 +128,30 @@ const Navbar = () => {
 
       <MenuOverlay isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
 
-      {/* SIMPLE CHAT POPUP (placeholder) */}
+      {/* CHAT POPUP */}
       {chatOpen && (
-        <div className="fixed bottom-5 right-5 w-80 h-96 bg-black text-white p-3 rounded-xl z-50">
+        <div className="fixed bottom-5 right-5 w-80 h-96 bg-black text-white p-3 rounded-xl z-[9999] shadow-2xl">
+
+          {/* HEADER */}
           <div className="flex justify-between items-center mb-2">
-            <h3>Live Chat</h3>
-            <button onClick={() => setChatOpen(false)}>✕</button>
+            <h3 className="font-semibold">Live Chat</h3>
+
+            <button
+              onClick={() => {
+                console.log("chat closed");
+                setChatOpen(false);
+              }}
+              className="text-white text-lg hover:text-red-400 transition"
+            >
+              ✕
+            </button>
           </div>
 
+          {/* BODY */}
           <div className="text-sm text-gray-300">
             Chat system coming soon...
           </div>
+
         </div>
       )}
     </>
