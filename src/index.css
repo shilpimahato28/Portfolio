@@ -1,0 +1,393 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Theme variables ── */
+@media (min-width: 768px) {
+  html, body, #root, canvas, a, button {
+    cursor: none !important;
+  }
+}
+
+
+:root,
+.dark {
+  --bg-primary: #050816;
+  --bg-card: #0c0e1a;
+  --bg-elevated: #151030;
+  --bg-nav: rgba(5, 8, 22, 0.85);
+  --text-primary: #ffffff;
+  --text-secondary: #dfd9ff;
+  --text-muted: #aaa6c3;
+  --border: rgba(145, 94, 255, 0.15);
+}
+
+.light {
+  --bg-primary: #f8f7ff;
+  --bg-card: #ffffff;
+  --bg-elevated: #f0eeff;
+  --bg-nav: rgba(248, 247, 255, 0.9);
+  --text-primary: #0a0a1a;
+  --text-secondary: #2d2b55;
+  --text-muted: #6b6889;
+  --border: rgba(145, 94, 255, 0.2);
+}
+
+/* ── Base ── */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  transition: background 0.3s, color 0.3s;
+}
+
+#root {
+  width: 100%;
+  min-height: 100svh;
+}
+
+/* ── Layout ── */
+.section-padding {
+  @apply px-6 sm:px-8 py-24 md:py-32;
+}
+
+/* ── Spline 3D Keyboard (matches 3d-portfolio overlay pattern) ── */
+.spline-wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: auto;
+}
+
+.spline-wrapper canvas {
+  width: 100% !important;
+  height: 100% !important;
+  outline: none;
+}
+
+.spline-loading,
+.spline-error {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+
+.spline-error code {
+  color: #915eff;
+  font-size: 0.75rem;
+}
+
+/* Let clicks pass through main to the 3D canvas; re-enable on content */
+.canvas-overlay-mode {
+  pointer-events: none;
+  background: transparent !important;
+}
+
+.canvas-overlay-mode a,
+.canvas-overlay-mode button,
+.canvas-overlay-mode input,
+.canvas-overlay-mode label,
+.canvas-overlay-mode select,
+.canvas-overlay-mode textarea,
+.canvas-overlay-mode [role="button"],
+.canvas-overlay-mode p,
+.canvas-overlay-mode h1,
+.canvas-overlay-mode h2,
+.canvas-overlay-mode h3,
+.canvas-overlay-mode h4,
+.canvas-overlay-mode span,
+.canvas-overlay-mode svg,
+.canvas-overlay-mode article,
+.canvas-overlay-mode form,
+.canvas-overlay-mode nav,
+.canvas-overlay-mode li,
+.canvas-overlay-mode .skill-card,
+.canvas-overlay-mode .exp-card,
+.canvas-overlay-mode .project-card,
+.canvas-overlay-mode .contact-card {
+  pointer-events: auto;
+}
+
+/* ── Navbar ── */
+.nav-btn {
+  @apply border border-[var(--border)] rounded-xl p-3 text-[var(--text-primary)]
+    hover:bg-[var(--bg-elevated)] transition flex items-center justify-center gap-2;
+}
+
+/* ── Hero ── */
+.hero-glow {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(145, 94, 255, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-btn-primary {
+  @apply flex items-center justify-center gap-3 bg-white text-black py-4 px-8
+    rounded-xl font-bold text-base hover:bg-gray-100 transition w-full sm:w-auto;
+}
+
+.hero-btn-secondary {
+  @apply bg-[var(--bg-elevated)] border border-[var(--border)] text-[var(--text-primary)]
+    py-4 px-6 rounded-xl font-semibold hover:border-[#915EFF] transition;
+}
+
+.hero-btn-icon {
+  @apply bg-[var(--bg-elevated)] border border-[var(--border)] text-[var(--text-primary)]
+    p-4 rounded-xl text-xl hover:border-[#915EFF] transition;
+}
+
+.scroll-indicator {
+  @apply w-[35px] h-[64px] rounded-3xl border-4 border-[var(--text-muted)]
+    flex justify-center items-start p-2 opacity-60 hover:opacity-100 transition;
+}
+
+.scroll-dot {
+  @apply w-3 h-3 rounded-full bg-[#915EFF];
+}
+
+/* ── Stars ── */
+.stars,
+.stars2,
+.stars3 {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.dark .stars,
+.dark .stars2,
+.dark .stars3 {
+  display: block;
+}
+
+.light .stars,
+.light .stars2,
+.light .stars3 {
+  display: none;
+}
+
+.stars {
+  background-image:
+    radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+    radial-gradient(2px 2px at 100px 80px, #fff, transparent),
+    radial-gradient(2px 2px at 200px 150px, #fff, transparent),
+    radial-gradient(2px 2px at 350px 100px, #fff, transparent),
+    radial-gradient(2px 2px at 500px 250px, #fff, transparent);
+  background-size: 600px 600px;
+  animation: moveStars 80s linear infinite;
+}
+
+.stars2 {
+  background-image:
+    radial-gradient(2px 2px at 50px 50px, #915eff, transparent),
+    radial-gradient(2px 2px at 250px 200px, #915eff, transparent),
+    radial-gradient(2px 2px at 450px 150px, #915eff, transparent);
+  background-size: 800px 800px;
+  animation: moveStars 120s linear infinite;
+}
+
+.stars3 {
+  background-image:
+    radial-gradient(3px 3px at 100px 100px, white, transparent),
+    radial-gradient(3px 3px at 400px 300px, white, transparent),
+    radial-gradient(3px 3px at 700px 200px, white, transparent);
+  background-size: 1000px 1000px;
+  animation: moveStars 160s linear infinite;
+}
+
+@keyframes moveStars {
+  from { transform: translateY(0); }
+  to { transform: translateY(-1000px); }
+}
+
+/* ── Keyboard ── */
+.keyboard-scene {
+  perspective: 1200px;
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+.keyboard-3d {
+  transform: rotateX(12deg) rotateY(-8deg);
+  transform-style: preserve-3d;
+  background: linear-gradient(145deg, #1a1a2e, #0f0f1a);
+  border-radius: 16px;
+  padding: 16px 12px 24px;
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(145, 94, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.light .keyboard-3d {
+  background: linear-gradient(145deg, #e8e6f5, #d4d0ea);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(145, 94, 255, 0.2);
+}
+
+.keyboard-row {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.keycap {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(180deg, #2a2a3e 0%, #1e1e30 100%);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  font-weight: 700;
+  color: #666;
+  box-shadow:
+    0 4px 0 #111,
+    0 6px 8px rgba(0, 0, 0, 0.4);
+  transition: all 0.15s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.light .keycap {
+  background: linear-gradient(180deg, #ffffff 0%, #e0dde8 100%);
+  color: #888;
+  box-shadow: 0 3px 0 #bbb, 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.keycap-label {
+  font-size: 7px;
+  letter-spacing: 0.5px;
+}
+
+.keycap-icon {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.keycap-active {
+  background: linear-gradient(180deg, var(--key-color, #915eff) 0%, color-mix(in srgb, var(--key-color, #915eff) 70%, black) 100%);
+  color: white;
+  box-shadow:
+    0 2px 0 color-mix(in srgb, var(--key-color, #915eff) 50%, black),
+    0 0 20px color-mix(in srgb, var(--key-color, #915eff) 40%, transparent);
+  transform: translateY(2px);
+}
+
+.keycap-active .keycap-label {
+  opacity: 0;
+}
+
+.keycap-active .keycap-icon {
+  opacity: 1;
+}
+
+.keycap-pressed {
+  transform: translateY(4px);
+  box-shadow: 0 1px 0 #111;
+}
+
+/* ── Skill card ── */
+.skill-card {
+  @apply p-6 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)];
+}
+
+.skill-pill {
+  @apply flex items-center gap-2 px-3 py-2 rounded-xl border border-[var(--border)]
+    text-[var(--text-muted)] text-sm hover:border-[#915EFF] transition cursor-pointer bg-[var(--bg-card)];
+}
+
+.skill-pill-active {
+  @apply border-[#915EFF] text-[#915EFF] bg-[#915EFF]/10;
+}
+
+.kbd {
+  @apply px-2 py-0.5 rounded bg-[var(--bg-elevated)] border border-[var(--border)]
+    font-mono text-xs;
+}
+
+/* ── Experience ── */
+.exp-card {
+  @apply p-6 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]
+    hover:border-[#915EFF]/40 transition-all duration-300;
+}
+
+/* ── Projects ── */
+.project-card {
+  @apply rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] overflow-hidden
+    hover:border-[#915EFF]/40 transition-all duration-300;
+}
+
+.project-card-image {
+  @apply relative h-48 flex items-center justify-center overflow-hidden;
+}
+
+.project-card-overlay {
+  @apply absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100
+    transition-opacity duration-300 flex items-center justify-center gap-4;
+}
+
+.project-link-btn {
+  @apply w-12 h-12 rounded-full bg-white/10 backdrop-blur border border-white/20
+    text-white flex items-center justify-center hover:bg-[#915EFF] hover:border-[#915EFF] transition;
+}
+
+/* ── Contact ── */
+.contact-card {
+  @apply p-6 sm:p-10 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)];
+}
+
+.form-label {
+  @apply block text-sm font-medium text-[var(--text-muted)] mb-2;
+}
+
+.form-input {
+  @apply w-full px-4 py-3 rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)]
+    text-[var(--text-primary)]
+    focus:outline-none focus:border-[#915EFF] transition;
+}
+
+.form-input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+.submit-btn {
+  @apply w-full flex items-center justify-center gap-3 py-4 rounded-xl
+    bg-[#915EFF] text-white font-bold text-base hover:bg-[#7c4dff] transition;
+}
